@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/eventdriven_cdk.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/backend.ts",
   "watch": {
     "include": [
       "**"
