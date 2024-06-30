@@ -1,3 +1,7 @@
 {
-  "body": "{\"flightId\": \"FL123\", \"seats\": [\"2A\", \"2B\"], \"username\": \"john.doe@example.com\"}"
+  "detail": {
+    "flightId": "FL12345",
+    "seats": ["12A", "12B"],
+    "username": "23748802-8091-7094-dd69-f685f3ce631f"
+  }
 }

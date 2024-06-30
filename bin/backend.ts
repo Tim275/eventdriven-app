@@ -6,6 +6,7 @@ import {Lambdastack} from '../lib/infra/Lambdastack';
 import { AuthStack } from "../lib/infra/auth-stack";
 import { ApiStack } from "./../lib/infra/api-stack";
 import { EventBridgeStack } from "./../lib/infra/event-bus";
+import { SESStack } from "./../lib/infra/ses-stack";
 
 const app = new cdk.App();
 const datastack =new Datastack(app, 'Datastack');
@@ -32,3 +33,8 @@ const eventStack = new EventBridgeStack(app, "EventBridgeStack", {
   emailReceipt: lambdastack.sendEmailFunc,
   syncFlights: lambdastack.syncFlightRuleFunc,
 });
+
+const sesStack = new SESStack(app, "SESStack");
+{
+   
+}

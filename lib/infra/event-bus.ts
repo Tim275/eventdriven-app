@@ -34,15 +34,17 @@ export class EventBridgeStack extends cdk.Stack {
       },
     });
 
+ // Rule for synchronizing flights
+ const syncFlightRule = new Rule(this, "SyncFlightRule", {
+  schedule: Schedule.rate(cdk.Duration.hours(24)), // Trigger the rule once every hour
+});
+
+
+
     // Add targets (Lambda functions) to the booking rule
     bookFlightRule.addTarget(new LambdaFunction(props.registerBooking)); // Register booking function
-    //bookFlightRule.addTarget(new LambdaFunction(props.emailReceipt)); // Email receipt function
-
-    // Rule for synchronizing flights
-    const syncFlightRule = new Rule(this, "SyncFlightRule", {
-      schedule: Schedule.rate(cdk.Duration.hours(1)), // Trigger the rule once every hour
-    });
-   // syncFlightRule.addTarget(new LambdaFunction(props.syncFlights)); // Add the sync flights function as a target
+    bookFlightRule.addTarget(new LambdaFunction(props.emailReceipt)); // Email receipt function
+    syncFlightRule.addTarget(new LambdaFunction(props.syncFlights)); // Add the sync flights function as a target
   }
 }
 
