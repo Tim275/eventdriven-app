@@ -7,6 +7,7 @@ import { AuthStack } from "../lib/infra/auth-stack";
 import { ApiStack } from "./../lib/infra/api-stack";
 import { EventBridgeStack } from "./../lib/infra/event-bus";
 import { SESStack } from "./../lib/infra/ses-stack";
+import { SESStack2 } from "./../lib/infra/ses-stack2"; 
 
 const app = new cdk.App();
 const datastack =new Datastack(app, 'Datastack');
@@ -38,3 +39,5 @@ const sesStack = new SESStack(app, "SESStack");
 {
    
 }
+
+const sesStack2 = new SESStack2(app, "SESStack2");

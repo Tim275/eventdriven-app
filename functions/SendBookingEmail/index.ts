@@ -7,7 +7,8 @@ const sesClient = new SESv2Client({
 });
 
 export const handler = async (event: {
-  detail: {
+  
+  detail: {  // aus der dynamodb datenbank
     flightId: string;
     seats: string[];
     username: string;
@@ -23,6 +24,7 @@ export const handler = async (event: {
   const userData = await getUser(event.detail.username);
   const useremail = userData[0].email;
   console.log(useremail);
+  cdk destroy AppsyncStack;
   try {
     const response = await sesClient.send(
       new SendEmailCommand({

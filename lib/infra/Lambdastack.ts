@@ -20,7 +20,8 @@ export class Lambdastack extends cdk.Stack {
   readonly sendEmailFunc: NodejsFunction;
   readonly syncFlightRuleFunc: NodejsFunction;
   readonly diceRollFunc: NodejsFunction; // Added diceRollFunc property
-
+  readonly sendEmailFunc2: NodejsFunction;
+  
   constructor(scope: Construct, id: string, props: LambdastackProps) {
     super(scope, id, props);
     this.addUserToTableFunc = this.addUserToUsersTable(props);
@@ -29,6 +30,7 @@ export class Lambdastack extends cdk.Stack {
     this.registerBookingFunc = this.registerBooking(props); // Initialize registerBookingFunc
     this.syncFlightRuleFunc = this.syncFlights(props);
     this.sendEmailFunc = this.sendEmail(props);
+    this.sendEmailFunc2 = this.sendEmail2(props);
   }
 
   addUserToUsersTable(props: LambdastackProps) {
@@ -128,6 +130,29 @@ sendEmail(props: LambdastackProps): NodejsFunction {
   );
 
   return func; // Return the configured Lambda function
+}
+
+sendEmail2(props: LambdastackProps): NodejsFunction {
+  const func = new NodejsFunction(this, "sendEmail2", {
+    functionName: "sendEmail2",
+    runtime: Runtime.NODEJS_20_X,
+    handler: "handler",
+    entry: path.join(__dirname, `../../functions/Standartmail/index.ts`),
+    timeout: cdk.Duration.seconds(30)
+  });
+
+  func.addToRolePolicy(
+    new iam.PolicyStatement({
+      actions: ["ses:*", "dynamodb:*"],
+      resources: [
+        props.usersTable.tableArn as string,
+        props.usersTable.tableArn + "/index/usernameIndex",
+        "*",
+      ],
+    })
+  );
+
+  return func;
 }
 
 

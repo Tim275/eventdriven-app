@@ -20,9 +20,9 @@ exports.handler = async (event: PostConfirmationConfirmSignUpTriggerEvent) => {
   const Item = {
     UserID: id,
     createdAt: isoDate,
-    email: event.request.userAttributes.email,
-    name: event.request.userAttributes.name,
-    username: event.userName,
+    email: event.request.userAttributes.email,  //
+    name: event.request.userAttributes.name, 
+    username: event.userName,   // von aws automatisch generiert COGNITO
   };
 
   const command = new PutItemCommand({
